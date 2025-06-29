@@ -19,17 +19,17 @@ This repository supports a thesis project that investigates:
 
 ##  What's Included
 
-- ✅ 30 Evaluation Queries  
+-  30 Evaluation Queries  
   - Covers **theory**, **code-based implementation**, and **dataset generation**
-- ✅ Model Responses from:
+-  Model Responses from:
   - GPT-4, Copilot, Gemini, DeepSeek, Perplexity
-- ✅ PAMI-GPT: A custom GPT trained using PAMI documentation and instruction-tuned examples
-- ✅ Rubric-based Evaluation (5-point scoring system)
-- ✅ Visual Comparisons (coming soon)
+-  PAMI-GPT: A custom GPT trained using PAMI documentation and instruction-tuned examples
+-  Rubric-based Evaluation (5-point scoring system)
+-  Visual Comparisons (coming soon)
 
 ---
 
-## 📊 Prompting Styles Used
+## Prompting Styles Used
 
 | Prompt Type | Description                             |
 |-------------|-----------------------------------------|
@@ -39,7 +39,7 @@ This repository supports a thesis project that investigates:
 
 ---
 
-## 📦 Key Technologies
+## Key Technologies
 
 - Python (for code execution & testing)
 - OpenAI Custom GPT / ChatGPT
@@ -58,16 +58,16 @@ This repository supports a thesis project that investigates:
 
 ---
 
-## 🙋‍♀️ Author
+##  Author
 
-👤 **Palla Madhavi**  
+ **Palla Madhavi**  
 Master's Student – University of Aizu  
 LinkedIn: *[Add link]*  
 GitHub: *[Your GitHub profile]*
 
 ---
 
-## 📜 License
+##  License
 
 MIT License (optional – add if you plan to open-source the project)
 
