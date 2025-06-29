@@ -1,0 +1,1033 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "gpuType": "T4",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    },
+    "accelerator": "GPU"
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/pallamadhavi/madhaviMasterThesis/blob/main/LLm_Response_UsingPAMILibrary\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Giving this prompt along with the Dataset to LLM\n",
+        "\n",
+        "**Prompt:**\n",
+        "Give me FPGrowth algorithm code to extract frequent patterns from the Transactional dataset i have provided using PAMI Library."
+      ],
+      "metadata": {
+        "id": "OAqVhzs7n78e"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "# DeepSeek Response\n"
+      ],
+      "metadata": {
+        "id": "dMWtKylyfI9i"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "pip install pami"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 1000
+        },
+        "id": "M1Ff0j663Wl9",
+        "outputId": "43d575d5-f8bd-417f-831c-535b2423702a"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Collecting pami\n",
+            "  Downloading pami-2025.6.26.1-py3-none-any.whl.metadata (80 kB)\n",
+            "\u001b[?25l     \u001b[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m0.0/80.3 kB\u001b[0m \u001b[31m?\u001b[0m eta \u001b[36m-:--:--\u001b[0m\r\u001b[2K     \u001b[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m80.3/80.3 kB\u001b[0m \u001b[31m4.5 MB/s\u001b[0m eta \u001b[36m0:00:00\u001b[0m\n",
+            "\u001b[?25hRequirement already satisfied: psutil in /usr/local/lib/python3.11/dist-packages (from pami) (5.9.5)\n",
+            "Requirement already satisfied: pandas in /usr/local/lib/python3.11/dist-packages (from pami) (2.2.2)\n",
+            "Requirement already satisfied: plotly in /usr/local/lib/python3.11/dist-packages (from pami) (5.24.1)\n",
+            "Requirement already satisfied: matplotlib in /usr/local/lib/python3.11/dist-packages (from pami) (3.10.0)\n",
+            "Collecting resource (from pami)\n",
+            "  Downloading Resource-0.2.1-py2.py3-none-any.whl.metadata (478 bytes)\n",
+            "Collecting validators (from pami)\n",
+            "  Downloading validators-0.35.0-py3-none-any.whl.metadata (3.9 kB)\n",
+            "Requirement already satisfied: urllib3 in /usr/local/lib/python3.11/dist-packages (from pami) (2.4.0)\n",
+            "Requirement already satisfied: Pillow in /usr/local/lib/python3.11/dist-packages (from pami) (11.2.1)\n",
+            "Requirement already satisfied: numpy in /usr/local/lib/python3.11/dist-packages (from pami) (2.0.2)\n",
+            "Requirement already satisfied: sphinx in /usr/local/lib/python3.11/dist-packages (from pami) (8.2.3)\n",
+            "Collecting sphinx-rtd-theme (from pami)\n",
+            "  Downloading sphinx_rtd_theme-3.0.2-py2.py3-none-any.whl.metadata (4.4 kB)\n",
+            "Collecting discord.py (from pami)\n",
+            "  Downloading discord_py-2.5.2-py3-none-any.whl.metadata (7.4 kB)\n",
+            "Requirement already satisfied: networkx in /usr/local/lib/python3.11/dist-packages (from pami) (3.5)\n",
+            "Collecting deprecated (from pami)\n",
+            "  Downloading Deprecated-1.2.18-py2.py3-none-any.whl.metadata (5.7 kB)\n",
+            "Collecting fastparquet (from pami)\n",
+            "  Downloading fastparquet-2024.11.0-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (4.2 kB)\n",
+            "Requirement already satisfied: wrapt<2,>=1.10 in /usr/local/lib/python3.11/dist-packages (from deprecated->pami) (1.17.2)\n",
+            "Requirement already satisfied: aiohttp<4,>=3.7.4 in /usr/local/lib/python3.11/dist-packages (from discord.py->pami) (3.11.15)\n",
+            "Requirement already satisfied: cramjam>=2.3 in /usr/local/lib/python3.11/dist-packages (from fastparquet->pami) (2.10.0)\n",
+            "Requirement already satisfied: fsspec in /usr/local/lib/python3.11/dist-packages (from fastparquet->pami) (2025.3.2)\n",
+            "Requirement already satisfied: packaging in /usr/local/lib/python3.11/dist-packages (from fastparquet->pami) (24.2)\n",
+            "Requirement already satisfied: python-dateutil>=2.8.2 in /usr/local/lib/python3.11/dist-packages (from pandas->pami) (2.9.0.post0)\n",
+            "Requirement already satisfied: pytz>=2020.1 in /usr/local/lib/python3.11/dist-packages (from pandas->pami) (2025.2)\n",
+            "Requirement already satisfied: tzdata>=2022.7 in /usr/local/lib/python3.11/dist-packages (from pandas->pami) (2025.2)\n",
+            "Requirement already satisfied: contourpy>=1.0.1 in /usr/local/lib/python3.11/dist-packages (from matplotlib->pami) (1.3.2)\n",
+            "Requirement already satisfied: cycler>=0.10 in /usr/local/lib/python3.11/dist-packages (from matplotlib->pami) (0.12.1)\n",
+            "Requirement already satisfied: fonttools>=4.22.0 in /usr/local/lib/python3.11/dist-packages (from matplotlib->pami) (4.58.4)\n",
+            "Requirement already satisfied: kiwisolver>=1.3.1 in /usr/local/lib/python3.11/dist-packages (from matplotlib->pami) (1.4.8)\n",
+            "Requirement already satisfied: pyparsing>=2.3.1 in /usr/local/lib/python3.11/dist-packages (from matplotlib->pami) (3.2.3)\n",
+            "Requirement already satisfied: tenacity>=6.2.0 in /usr/local/lib/python3.11/dist-packages (from plotly->pami) (8.5.0)\n",
+            "Collecting JsonForm>=0.0.2 (from resource->pami)\n",
+            "  Downloading JsonForm-0.0.2.tar.gz (2.4 kB)\n",
+            "  Preparing metadata (setup.py) ... \u001b[?25l\u001b[?25hdone\n",
+            "Collecting JsonSir>=0.0.2 (from resource->pami)\n",
+            "  Downloading JsonSir-0.0.2.tar.gz (2.2 kB)\n",
+            "  Preparing metadata (setup.py) ... \u001b[?25l\u001b[?25hdone\n",
+            "Collecting python-easyconfig>=0.1.0 (from resource->pami)\n",
+            "  Downloading Python_EasyConfig-0.1.7-py2.py3-none-any.whl.metadata (462 bytes)\n",
+            "Requirement already satisfied: sphinxcontrib-applehelp>=1.0.7 in /usr/local/lib/python3.11/dist-packages (from sphinx->pami) (2.0.0)\n",
+            "Requirement already satisfied: sphinxcontrib-devhelp>=1.0.6 in /usr/local/lib/python3.11/dist-packages (from sphinx->pami) (2.0.0)\n",
+            "Requirement already satisfied: sphinxcontrib-htmlhelp>=2.0.6 in /usr/local/lib/python3.11/dist-packages (from sphinx->pami) (2.1.0)\n",
+            "Requirement already satisfied: sphinxcontrib-jsmath>=1.0.1 in /usr/local/lib/python3.11/dist-packages (from sphinx->pami) (1.0.1)\n",
+            "Requirement already satisfied: sphinxcontrib-qthelp>=1.0.6 in /usr/local/lib/python3.11/dist-packages (from sphinx->pami) (2.0.0)\n",
+            "Requirement already satisfied: sphinxcontrib-serializinghtml>=1.1.9 in /usr/local/lib/python3.11/dist-packages (from sphinx->pami) (2.0.0)\n",
+            "Requirement already satisfied: Jinja2>=3.1 in /usr/local/lib/python3.11/dist-packages (from sphinx->pami) (3.1.6)\n",
+            "Requirement already satisfied: Pygments>=2.17 in /usr/local/lib/python3.11/dist-packages (from sphinx->pami) (2.19.2)\n",
+            "Requirement already satisfied: docutils<0.22,>=0.20 in /usr/local/lib/python3.11/dist-packages (from sphinx->pami) (0.21.2)\n",
+            "Requirement already satisfied: snowballstemmer>=2.2 in /usr/local/lib/python3.11/dist-packages (from sphinx->pami) (3.0.1)\n",
+            "Requirement already satisfied: babel>=2.13 in /usr/local/lib/python3.11/dist-packages (from sphinx->pami) (2.17.0)\n",
+            "Requirement already satisfied: alabaster>=0.7.14 in /usr/local/lib/python3.11/dist-packages (from sphinx->pami) (1.0.0)\n",
+            "Requirement already satisfied: imagesize>=1.3 in /usr/local/lib/python3.11/dist-packages (from sphinx->pami) (1.4.1)\n",
+            "Requirement already satisfied: requests>=2.30.0 in /usr/local/lib/python3.11/dist-packages (from sphinx->pami) (2.32.3)\n",
+            "Requirement already satisfied: roman-numerals-py>=1.0.0 in /usr/local/lib/python3.11/dist-packages (from sphinx->pami) (3.1.0)\n",
+            "Collecting sphinxcontrib-jquery<5,>=4 (from sphinx-rtd-theme->pami)\n",
+            "  Downloading sphinxcontrib_jquery-4.1-py2.py3-none-any.whl.metadata (2.6 kB)\n",
+            "Requirement already satisfied: aiohappyeyeballs>=2.3.0 in /usr/local/lib/python3.11/dist-packages (from aiohttp<4,>=3.7.4->discord.py->pami) (2.6.1)\n",
+            "Requirement already satisfied: aiosignal>=1.1.2 in /usr/local/lib/python3.11/dist-packages (from aiohttp<4,>=3.7.4->discord.py->pami) (1.3.2)\n",
+            "Requirement already satisfied: attrs>=17.3.0 in /usr/local/lib/python3.11/dist-packages (from aiohttp<4,>=3.7.4->discord.py->pami) (25.3.0)\n",
+            "Requirement already satisfied: frozenlist>=1.1.1 in /usr/local/lib/python3.11/dist-packages (from aiohttp<4,>=3.7.4->discord.py->pami) (1.7.0)\n",
+            "Requirement already satisfied: multidict<7.0,>=4.5 in /usr/local/lib/python3.11/dist-packages (from aiohttp<4,>=3.7.4->discord.py->pami) (6.4.4)\n",
+            "Requirement already satisfied: propcache>=0.2.0 in /usr/local/lib/python3.11/dist-packages (from aiohttp<4,>=3.7.4->discord.py->pami) (0.3.2)\n",
+            "Requirement already satisfied: yarl<2.0,>=1.17.0 in /usr/local/lib/python3.11/dist-packages (from aiohttp<4,>=3.7.4->discord.py->pami) (1.20.1)\n",
+            "Requirement already satisfied: MarkupSafe>=2.0 in /usr/local/lib/python3.11/dist-packages (from Jinja2>=3.1->sphinx->pami) (3.0.2)\n",
+            "Requirement already satisfied: jsonschema in /usr/local/lib/python3.11/dist-packages (from JsonForm>=0.0.2->resource->pami) (4.24.0)\n",
+            "Requirement already satisfied: six>=1.5 in /usr/local/lib/python3.11/dist-packages (from python-dateutil>=2.8.2->pandas->pami) (1.17.0)\n",
+            "Requirement already satisfied: PyYAML in /usr/local/lib/python3.11/dist-packages (from python-easyconfig>=0.1.0->resource->pami) (6.0.2)\n",
+            "Requirement already satisfied: charset-normalizer<4,>=2 in /usr/local/lib/python3.11/dist-packages (from requests>=2.30.0->sphinx->pami) (3.4.2)\n",
+            "Requirement already satisfied: idna<4,>=2.5 in /usr/local/lib/python3.11/dist-packages (from requests>=2.30.0->sphinx->pami) (3.10)\n",
+            "Requirement already satisfied: certifi>=2017.4.17 in /usr/local/lib/python3.11/dist-packages (from requests>=2.30.0->sphinx->pami) (2025.6.15)\n",
+            "Requirement already satisfied: jsonschema-specifications>=2023.03.6 in /usr/local/lib/python3.11/dist-packages (from jsonschema->JsonForm>=0.0.2->resource->pami) (2025.4.1)\n",
+            "Requirement already satisfied: referencing>=0.28.4 in /usr/local/lib/python3.11/dist-packages (from jsonschema->JsonForm>=0.0.2->resource->pami) (0.36.2)\n",
+            "Requirement already satisfied: rpds-py>=0.7.1 in /usr/local/lib/python3.11/dist-packages (from jsonschema->JsonForm>=0.0.2->resource->pami) (0.25.1)\n",
+            "Requirement already satisfied: typing-extensions>=4.4.0 in /usr/local/lib/python3.11/dist-packages (from referencing>=0.28.4->jsonschema->JsonForm>=0.0.2->resource->pami) (4.14.0)\n",
+            "Downloading pami-2025.6.26.1-py3-none-any.whl (1.2 MB)\n",
+            "\u001b[2K   \u001b[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m1.2/1.2 MB\u001b[0m \u001b[31m11.2 MB/s\u001b[0m eta \u001b[36m0:00:00\u001b[0m\n",
+            "\u001b[?25hDownloading Deprecated-1.2.18-py2.py3-none-any.whl (10.0 kB)\n",
+            "Downloading discord_py-2.5.2-py3-none-any.whl (1.2 MB)\n",
+            "\u001b[2K   \u001b[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m1.2/1.2 MB\u001b[0m \u001b[31m42.1 MB/s\u001b[0m eta \u001b[36m0:00:00\u001b[0m\n",
+            "\u001b[?25hDownloading fastparquet-2024.11.0-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (1.8 MB)\n",
+            "\u001b[2K   \u001b[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m1.8/1.8 MB\u001b[0m \u001b[31m71.9 MB/s\u001b[0m eta \u001b[36m0:00:00\u001b[0m\n",
+            "\u001b[?25hDownloading Resource-0.2.1-py2.py3-none-any.whl (25 kB)\n",
+            "Downloading sphinx_rtd_theme-3.0.2-py2.py3-none-any.whl (7.7 MB)\n",
+            "\u001b[2K   \u001b[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m7.7/7.7 MB\u001b[0m \u001b[31m82.0 MB/s\u001b[0m eta \u001b[36m0:00:00\u001b[0m\n",
+            "\u001b[?25hDownloading validators-0.35.0-py3-none-any.whl (44 kB)\n",
+            "\u001b[2K   \u001b[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m44.7/44.7 kB\u001b[0m \u001b[31m3.9 MB/s\u001b[0m eta \u001b[36m0:00:00\u001b[0m\n",
+            "\u001b[?25hDownloading Python_EasyConfig-0.1.7-py2.py3-none-any.whl (5.4 kB)\n",
+            "Downloading sphinxcontrib_jquery-4.1-py2.py3-none-any.whl (121 kB)\n",
+            "\u001b[2K   \u001b[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m121.1/121.1 kB\u001b[0m \u001b[31m13.0 MB/s\u001b[0m eta \u001b[36m0:00:00\u001b[0m\n",
+            "\u001b[?25hBuilding wheels for collected packages: JsonForm, JsonSir\n",
+            "  Building wheel for JsonForm (setup.py) ... \u001b[?25l\u001b[?25hdone\n",
+            "  Created wheel for JsonForm: filename=JsonForm-0.0.2-py3-none-any.whl size=3311 sha256=8fe13a3146d1b3ff3dbb1d07f5791f2b92a450e53149aded7aabe3f44d5bced8\n",
+            "  Stored in directory: /root/.cache/pip/wheels/ee/53/ac/c77344bd941889aa16ad694cb203ee587de1749e973ba9fdb8\n",
+            "  Building wheel for JsonSir (setup.py) ... \u001b[?25l\u001b[?25hdone\n",
+            "  Created wheel for JsonSir: filename=JsonSir-0.0.2-py3-none-any.whl size=4754 sha256=b1bb52def00c0cccb08017f709a9d7d623218bb8663ca946a030169f5133616a\n",
+            "  Stored in directory: /root/.cache/pip/wheels/d0/92/1d/bdf54bd7aefaf8305526450e3337733509b755328692619664\n",
+            "Successfully built JsonForm JsonSir\n",
+            "Installing collected packages: JsonSir, validators, python-easyconfig, deprecated, sphinxcontrib-jquery, fastparquet, discord.py, sphinx-rtd-theme, JsonForm, resource, pami\n",
+            "Successfully installed JsonForm-0.0.2 JsonSir-0.0.2 deprecated-1.2.18 discord.py-2.5.2 fastparquet-2024.11.0 pami-2025.6.26.1 python-easyconfig-0.1.7 resource-0.2.1 sphinx-rtd-theme-3.0.2 sphinxcontrib-jquery-4.1 validators-0.35.0\n"
+          ]
+        },
+        {
+          "output_type": "display_data",
+          "data": {
+            "application/vnd.colab-display-data+json": {
+              "pip_warning": {
+                "packages": [
+                  "sphinxcontrib"
+                ]
+              },
+              "id": "926eabf95b6a4bf089f9bca9f10481ac"
+            }
+          },
+          "metadata": {}
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "w65xRllqbqwP",
+        "outputId": "022d218f-493a-4519-917e-a591f158874a"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "The column name should be Transactions and each line should be separated by tab space or a seperator specified by the user\n",
+            "Frequent patterns were generated successfully using frequentPatternGrowth algorithm\n",
+            "Number of Frequent Patterns found: 0\n",
+            "\n",
+            "Sample Frequent Patterns:\n"
+          ]
+        },
+        {
+          "output_type": "stream",
+          "name": "stderr",
+          "text": [
+            "/tmp/ipython-input-1-1518000016.py:29: DeprecationWarning: Call to deprecated method startMine. (It is recommended to use 'mine()' instead of 'mine()' for mining process. Starting from January 2025, 'mine()' will be completely terminated.)\n",
+            "  fpgrowth.startMine()\n"
+          ]
+        }
+      ],
+      "source": [
+        "from PAMI.frequentPattern.basic import FPGrowth as fp\n",
+        "import pandas as pd\n",
+        "\n",
+        "def load_transactions(file_path):\n",
+        "    \"\"\"Load transactions from the file\"\"\"\n",
+        "    transactions = []\n",
+        "    with open(file_path, 'r') as file:\n",
+        "        for line in file:\n",
+        "            transaction = list(map(int, line.strip().split('\\t')))\n",
+        "            transactions.append(transaction)\n",
+        "    return transactions\n",
+        "\n",
+        "def main():\n",
+        "    # Load your dataset\n",
+        "    file_path = 'Transactional_T10I4D100K.csv'\n",
+        "    transactions = load_transactions(file_path)\n",
+        "\n",
+        "    # Convert to dataframe (required by PAMI)\n",
+        "    df = pd.DataFrame(transactions)\n",
+        "\n",
+        "    # Set parameters\n",
+        "    min_support = 100  # Adjust this value based on your needs\n",
+        "    sep = '\\t'  # Separator used in your input file\n",
+        "\n",
+        "    # Create FP-Growth model\n",
+        "    fpgrowth = fp.FPGrowth(df, minSup=min_support, sep=sep)\n",
+        "\n",
+        "    # Start mining\n",
+        "    fpgrowth.startMine()\n",
+        "\n",
+        "    # Get results\n",
+        "    frequent_patterns = fpgrowth.getPatterns()\n",
+        "    print(f\"Number of Frequent Patterns found: {len(frequent_patterns)}\")\n",
+        "\n",
+        "    # Save results to file\n",
+        "    fpgrowth.save('frequent_patterns.txt')\n",
+        "\n",
+        "    # Display some sample patterns\n",
+        "    print(\"\\nSample Frequent Patterns:\")\n",
+        "    for pattern, support in list(frequent_patterns.items())[:20]:\n",
+        "        print(f\"{pattern}: {support}\")\n",
+        "\n",
+        "if __name__ == \"__main__\":\n",
+        "    main()"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "###### No patterns have been discovered from the code deepseek have given."
+      ],
+      "metadata": {
+        "id": "R4Nukx5wpTJw"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "# Chatgpt Response\n"
+      ],
+      "metadata": {
+        "id": "YemRP5VvfNiC"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "pip install pyfim  # or use the official installation from source if PAMI is a custom implementation\n"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "wvxqYJE1fPHq",
+        "outputId": "e18d955f-4797-477d-9250-ae1350db75f8"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Collecting pyfim\n",
+            "  Downloading pyfim-6.28.tar.gz (357 kB)\n",
+            "\u001b[?25l     \u001b[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m0.0/357.3 kB\u001b[0m \u001b[31m?\u001b[0m eta \u001b[36m-:--:--\u001b[0m\r\u001b[2K     \u001b[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m357.3/357.3 kB\u001b[0m \u001b[31m13.6 MB/s\u001b[0m eta \u001b[36m0:00:00\u001b[0m\n",
+            "\u001b[?25h  Preparing metadata (setup.py) ... \u001b[?25l\u001b[?25hdone\n",
+            "Building wheels for collected packages: pyfim\n",
+            "  Building wheel for pyfim (setup.py) ... \u001b[?25l\u001b[?25hdone\n",
+            "  Created wheel for pyfim: filename=pyfim-6.28-cp311-cp311-linux_x86_64.whl size=647097 sha256=122a602ca11131292df4314928b8d7c76443724639ac33058839d135336dc66b\n",
+            "  Stored in directory: /root/.cache/pip/wheels/aa/a6/5e/b106c510135fd055b238ecf87738098dc7ad3a1f056dd5208e\n",
+            "Successfully built pyfim\n",
+            "Installing collected packages: pyfim\n",
+            "Successfully installed pyfim-6.28\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "from FPGrowth import FPGrowth\n",
+        "\n",
+        "# Set your file path and parameters\n",
+        "input_file = \"Transactional_T10I4D100K.csv\"\n",
+        "min_support = 20\n",
+        "delimiter = \",\"  # Change to \"\\t\" if tab-separated\n",
+        "\n",
+        "# Initialize and run the algorithm\n",
+        "FPGrowth.runAlgorithm(input_file, min_support, delimiter)\n"
+      ],
+      "metadata": {
+        "id": "viIaBh4GfPUQ",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 383
+        },
+        "outputId": "2a7c975b-f5aa-4216-8e9c-6ceab3d75a49"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "error",
+          "ename": "ModuleNotFoundError",
+          "evalue": "No module named 'FPGrowth'",
+          "traceback": [
+            "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+            "\u001b[0;31mModuleNotFoundError\u001b[0m                       Traceback (most recent call last)",
+            "\u001b[0;32m/tmp/ipython-input-3-4191187952.py\u001b[0m in \u001b[0;36m<cell line: 0>\u001b[0;34m()\u001b[0m\n\u001b[0;32m----> 1\u001b[0;31m \u001b[0;32mfrom\u001b[0m \u001b[0mFPGrowth\u001b[0m \u001b[0;32mimport\u001b[0m \u001b[0mFPGrowth\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m      2\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m      3\u001b[0m \u001b[0;31m# Set your file path and parameters\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m      4\u001b[0m \u001b[0minput_file\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0;34m\"Transactional_T10I4D100K.csv\"\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m      5\u001b[0m \u001b[0mmin_support\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0;36m20\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+            "\u001b[0;31mModuleNotFoundError\u001b[0m: No module named 'FPGrowth'",
+            "",
+            "\u001b[0;31m---------------------------------------------------------------------------\u001b[0;32m\nNOTE: If your import is failing due to a missing package, you can\nmanually install dependencies using either !pip or !apt.\n\nTo view examples of installing some common dependencies, click the\n\"Open Examples\" button below.\n\u001b[0;31m---------------------------------------------------------------------------\u001b[0m\n"
+          ],
+          "errorDetails": {
+            "actions": [
+              {
+                "action": "open_url",
+                "actionText": "Open Examples",
+                "url": "/notebooks/snippets/importing_libraries.ipynb"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "###### No patterns have been discovered from the code deepseek have given."
+      ],
+      "metadata": {
+        "id": "QAzCazKApo-O"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "# Gemini Response"
+      ],
+      "metadata": {
+        "id": "fQb7Yfb9mp54"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "pip install pami"
+      ],
+      "metadata": {
+        "id": "IELeYbWdmtL7",
+        "outputId": "a796e4c1-3ddd-4272-f31f-538922e80573",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        }
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Requirement already satisfied: pami in /usr/local/lib/python3.11/dist-packages (2025.6.26.1)\n",
+            "Requirement already satisfied: psutil in /usr/local/lib/python3.11/dist-packages (from pami) (5.9.5)\n",
+            "Requirement already satisfied: pandas in /usr/local/lib/python3.11/dist-packages (from pami) (2.2.2)\n",
+            "Requirement already satisfied: plotly in /usr/local/lib/python3.11/dist-packages (from pami) (5.24.1)\n",
+            "Requirement already satisfied: matplotlib in /usr/local/lib/python3.11/dist-packages (from pami) (3.10.0)\n",
+            "Requirement already satisfied: resource in /usr/local/lib/python3.11/dist-packages (from pami) (0.2.1)\n",
+            "Requirement already satisfied: validators in /usr/local/lib/python3.11/dist-packages (from pami) (0.35.0)\n",
+            "Requirement already satisfied: urllib3 in /usr/local/lib/python3.11/dist-packages (from pami) (2.4.0)\n",
+            "Requirement already satisfied: Pillow in /usr/local/lib/python3.11/dist-packages (from pami) (11.2.1)\n",
+            "Requirement already satisfied: numpy in /usr/local/lib/python3.11/dist-packages (from pami) (2.0.2)\n",
+            "Requirement already satisfied: sphinx in /usr/local/lib/python3.11/dist-packages (from pami) (8.2.3)\n",
+            "Requirement already satisfied: sphinx-rtd-theme in /usr/local/lib/python3.11/dist-packages (from pami) (3.0.2)\n",
+            "Requirement already satisfied: discord.py in /usr/local/lib/python3.11/dist-packages (from pami) (2.5.2)\n",
+            "Requirement already satisfied: networkx in /usr/local/lib/python3.11/dist-packages (from pami) (3.5)\n",
+            "Requirement already satisfied: deprecated in /usr/local/lib/python3.11/dist-packages (from pami) (1.2.18)\n",
+            "Requirement already satisfied: fastparquet in /usr/local/lib/python3.11/dist-packages (from pami) (2024.11.0)\n",
+            "Requirement already satisfied: wrapt<2,>=1.10 in /usr/local/lib/python3.11/dist-packages (from deprecated->pami) (1.17.2)\n",
+            "Requirement already satisfied: aiohttp<4,>=3.7.4 in /usr/local/lib/python3.11/dist-packages (from discord.py->pami) (3.11.15)\n",
+            "Requirement already satisfied: cramjam>=2.3 in /usr/local/lib/python3.11/dist-packages (from fastparquet->pami) (2.10.0)\n",
+            "Requirement already satisfied: fsspec in /usr/local/lib/python3.11/dist-packages (from fastparquet->pami) (2025.3.2)\n",
+            "Requirement already satisfied: packaging in /usr/local/lib/python3.11/dist-packages (from fastparquet->pami) (24.2)\n",
+            "Requirement already satisfied: python-dateutil>=2.8.2 in /usr/local/lib/python3.11/dist-packages (from pandas->pami) (2.9.0.post0)\n",
+            "Requirement already satisfied: pytz>=2020.1 in /usr/local/lib/python3.11/dist-packages (from pandas->pami) (2025.2)\n",
+            "Requirement already satisfied: tzdata>=2022.7 in /usr/local/lib/python3.11/dist-packages (from pandas->pami) (2025.2)\n",
+            "Requirement already satisfied: contourpy>=1.0.1 in /usr/local/lib/python3.11/dist-packages (from matplotlib->pami) (1.3.2)\n",
+            "Requirement already satisfied: cycler>=0.10 in /usr/local/lib/python3.11/dist-packages (from matplotlib->pami) (0.12.1)\n",
+            "Requirement already satisfied: fonttools>=4.22.0 in /usr/local/lib/python3.11/dist-packages (from matplotlib->pami) (4.58.4)\n",
+            "Requirement already satisfied: kiwisolver>=1.3.1 in /usr/local/lib/python3.11/dist-packages (from matplotlib->pami) (1.4.8)\n",
+            "Requirement already satisfied: pyparsing>=2.3.1 in /usr/local/lib/python3.11/dist-packages (from matplotlib->pami) (3.2.3)\n",
+            "Requirement already satisfied: tenacity>=6.2.0 in /usr/local/lib/python3.11/dist-packages (from plotly->pami) (8.5.0)\n",
+            "Requirement already satisfied: JsonForm>=0.0.2 in /usr/local/lib/python3.11/dist-packages (from resource->pami) (0.0.2)\n",
+            "Requirement already satisfied: JsonSir>=0.0.2 in /usr/local/lib/python3.11/dist-packages (from resource->pami) (0.0.2)\n",
+            "Requirement already satisfied: python-easyconfig>=0.1.0 in /usr/local/lib/python3.11/dist-packages (from resource->pami) (0.1.7)\n",
+            "Requirement already satisfied: sphinxcontrib-applehelp>=1.0.7 in /usr/local/lib/python3.11/dist-packages (from sphinx->pami) (2.0.0)\n",
+            "Requirement already satisfied: sphinxcontrib-devhelp>=1.0.6 in /usr/local/lib/python3.11/dist-packages (from sphinx->pami) (2.0.0)\n",
+            "Requirement already satisfied: sphinxcontrib-htmlhelp>=2.0.6 in /usr/local/lib/python3.11/dist-packages (from sphinx->pami) (2.1.0)\n",
+            "Requirement already satisfied: sphinxcontrib-jsmath>=1.0.1 in /usr/local/lib/python3.11/dist-packages (from sphinx->pami) (1.0.1)\n",
+            "Requirement already satisfied: sphinxcontrib-qthelp>=1.0.6 in /usr/local/lib/python3.11/dist-packages (from sphinx->pami) (2.0.0)\n",
+            "Requirement already satisfied: sphinxcontrib-serializinghtml>=1.1.9 in /usr/local/lib/python3.11/dist-packages (from sphinx->pami) (2.0.0)\n",
+            "Requirement already satisfied: Jinja2>=3.1 in /usr/local/lib/python3.11/dist-packages (from sphinx->pami) (3.1.6)\n",
+            "Requirement already satisfied: Pygments>=2.17 in /usr/local/lib/python3.11/dist-packages (from sphinx->pami) (2.19.2)\n",
+            "Requirement already satisfied: docutils<0.22,>=0.20 in /usr/local/lib/python3.11/dist-packages (from sphinx->pami) (0.21.2)\n",
+            "Requirement already satisfied: snowballstemmer>=2.2 in /usr/local/lib/python3.11/dist-packages (from sphinx->pami) (3.0.1)\n",
+            "Requirement already satisfied: babel>=2.13 in /usr/local/lib/python3.11/dist-packages (from sphinx->pami) (2.17.0)\n",
+            "Requirement already satisfied: alabaster>=0.7.14 in /usr/local/lib/python3.11/dist-packages (from sphinx->pami) (1.0.0)\n",
+            "Requirement already satisfied: imagesize>=1.3 in /usr/local/lib/python3.11/dist-packages (from sphinx->pami) (1.4.1)\n",
+            "Requirement already satisfied: requests>=2.30.0 in /usr/local/lib/python3.11/dist-packages (from sphinx->pami) (2.32.3)\n",
+            "Requirement already satisfied: roman-numerals-py>=1.0.0 in /usr/local/lib/python3.11/dist-packages (from sphinx->pami) (3.1.0)\n",
+            "Requirement already satisfied: sphinxcontrib-jquery<5,>=4 in /usr/local/lib/python3.11/dist-packages (from sphinx-rtd-theme->pami) (4.1)\n",
+            "Requirement already satisfied: aiohappyeyeballs>=2.3.0 in /usr/local/lib/python3.11/dist-packages (from aiohttp<4,>=3.7.4->discord.py->pami) (2.6.1)\n",
+            "Requirement already satisfied: aiosignal>=1.1.2 in /usr/local/lib/python3.11/dist-packages (from aiohttp<4,>=3.7.4->discord.py->pami) (1.3.2)\n",
+            "Requirement already satisfied: attrs>=17.3.0 in /usr/local/lib/python3.11/dist-packages (from aiohttp<4,>=3.7.4->discord.py->pami) (25.3.0)\n",
+            "Requirement already satisfied: frozenlist>=1.1.1 in /usr/local/lib/python3.11/dist-packages (from aiohttp<4,>=3.7.4->discord.py->pami) (1.7.0)\n",
+            "Requirement already satisfied: multidict<7.0,>=4.5 in /usr/local/lib/python3.11/dist-packages (from aiohttp<4,>=3.7.4->discord.py->pami) (6.4.4)\n",
+            "Requirement already satisfied: propcache>=0.2.0 in /usr/local/lib/python3.11/dist-packages (from aiohttp<4,>=3.7.4->discord.py->pami) (0.3.2)\n",
+            "Requirement already satisfied: yarl<2.0,>=1.17.0 in /usr/local/lib/python3.11/dist-packages (from aiohttp<4,>=3.7.4->discord.py->pami) (1.20.1)\n",
+            "Requirement already satisfied: MarkupSafe>=2.0 in /usr/local/lib/python3.11/dist-packages (from Jinja2>=3.1->sphinx->pami) (3.0.2)\n",
+            "Requirement already satisfied: jsonschema in /usr/local/lib/python3.11/dist-packages (from JsonForm>=0.0.2->resource->pami) (4.24.0)\n",
+            "Requirement already satisfied: six>=1.5 in /usr/local/lib/python3.11/dist-packages (from python-dateutil>=2.8.2->pandas->pami) (1.17.0)\n",
+            "Requirement already satisfied: PyYAML in /usr/local/lib/python3.11/dist-packages (from python-easyconfig>=0.1.0->resource->pami) (6.0.2)\n",
+            "Requirement already satisfied: charset-normalizer<4,>=2 in /usr/local/lib/python3.11/dist-packages (from requests>=2.30.0->sphinx->pami) (3.4.2)\n",
+            "Requirement already satisfied: idna<4,>=2.5 in /usr/local/lib/python3.11/dist-packages (from requests>=2.30.0->sphinx->pami) (3.10)\n",
+            "Requirement already satisfied: certifi>=2017.4.17 in /usr/local/lib/python3.11/dist-packages (from requests>=2.30.0->sphinx->pami) (2025.6.15)\n",
+            "Requirement already satisfied: jsonschema-specifications>=2023.03.6 in /usr/local/lib/python3.11/dist-packages (from jsonschema->JsonForm>=0.0.2->resource->pami) (2025.4.1)\n",
+            "Requirement already satisfied: referencing>=0.28.4 in /usr/local/lib/python3.11/dist-packages (from jsonschema->JsonForm>=0.0.2->resource->pami) (0.36.2)\n",
+            "Requirement already satisfied: rpds-py>=0.7.1 in /usr/local/lib/python3.11/dist-packages (from jsonschema->JsonForm>=0.0.2->resource->pami) (0.25.1)\n",
+            "Requirement already satisfied: typing-extensions>=4.4.0 in /usr/local/lib/python3.11/dist-packages (from referencing>=0.28.4->jsonschema->JsonForm>=0.0.2->resource->pami) (4.14.0)\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import pandas as pd\n",
+        "from PAMI.frequentPattern.basic import FPGrowth as alg\n",
+        "\n",
+        "# Define the input file name and separator\n",
+        "input_file = 'Transactional_T10I4D100K.csv'\n",
+        "separator = '\\t'  # Items in your file are separated by tabs\n",
+        "\n",
+        "# Define the minimum support count.\n",
+        "# The minSup parameter in PAMI's FPGrowth expects an integer representing the minimum count,\n",
+        "# not a percentage. If you want a 1% support from 99,935 transactions, that's roughly 999.\n",
+        "# Let's use 1000 as an initial example. You can adjust this value.\n",
+        "min_support_count = 1000\n",
+        "\n",
+        "# Initialize the FPGrowth algorithm\n",
+        "# The FPGrowth class in PAMI takes the input file path, minimum support count, and separator.\n",
+        "fpgrowth_obj = alg.FPGrowth(iFile=input_file, minSup=min_support_count, sep=separator)\n",
+        "\n",
+        "# Start the mining process\n",
+        "print(f\"Mining frequent patterns with minimum support count: {min_support_count}...\")\n",
+        "fpgrowth_obj.mine()\n",
+        "print(\"Mining complete.\")\n",
+        "\n",
+        "# Get the discovered frequent patterns as a pandas DataFrame\n",
+        "frequent_patterns_df = fpgrowth_obj.getPatternsAsDataFrame()\n",
+        "\n",
+        "# Display the first few frequent patterns\n",
+        "print(\"\\nTop 10 Frequent Patterns (sorted by support count):\")\n",
+        "# PAMI's getPatternsAsDataFrame returns a DataFrame with 'pattern' and 'support' columns.\n",
+        "# The 'support' column here refers to the count.\n",
+        "print(frequent_patterns_df.sort_values(by='support', ascending=False).head(10))\n",
+        "\n",
+        "# Optionally, save the frequent patterns to a CSV file\n",
+        "output_filename = f'frequent_patterns_PAMI_minSup{min_support_count}.csv'\n",
+        "frequent_patterns_df.to_csv(output_filename, index=False)\n",
+        "print(f\"\\nAll frequent patterns have been saved to '{output_filename}'.\")\n",
+        "\n",
+        "# You can also get runtime and memory details if needed\n",
+        "print(f\"\\nRuntime: {fpgrowth_obj.getRuntime()} seconds\")\n",
+        "print(f\"Memory (RSS): {fpgrowth_obj.getMemoryRSS()} MB\")"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 515
+        },
+        "id": "uIfpwvJP5EYw",
+        "outputId": "ad832128-d2ad-4315-daca-4f7a550ae19e"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Mining frequent patterns with minimum support count: 1000...\n",
+            "Frequent patterns were generated successfully using frequentPatternGrowth algorithm\n",
+            "Mining complete.\n",
+            "\n",
+            "Top 10 Frequent Patterns (sorted by support count):\n"
+          ]
+        },
+        {
+          "output_type": "error",
+          "ename": "KeyError",
+          "evalue": "'support'",
+          "traceback": [
+            "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+            "\u001b[0;31mKeyError\u001b[0m                                  Traceback (most recent call last)",
+            "\u001b[0;32m/tmp/ipython-input-9-2878302803.py\u001b[0m in \u001b[0;36m<cell line: 0>\u001b[0;34m()\u001b[0m\n\u001b[1;32m     28\u001b[0m \u001b[0;31m# PAMI's getPatternsAsDataFrame returns a DataFrame with 'pattern' and 'support' columns.\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m     29\u001b[0m \u001b[0;31m# The 'support' column here refers to the count.\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m---> 30\u001b[0;31m \u001b[0mprint\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mfrequent_patterns_df\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0msort_values\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mby\u001b[0m\u001b[0;34m=\u001b[0m\u001b[0;34m'support'\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mascending\u001b[0m\u001b[0;34m=\u001b[0m\u001b[0;32mFalse\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mhead\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;36m10\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m     31\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m     32\u001b[0m \u001b[0;31m# Optionally, save the frequent patterns to a CSV file\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+            "\u001b[0;32m/usr/local/lib/python3.11/dist-packages/pandas/core/frame.py\u001b[0m in \u001b[0;36msort_values\u001b[0;34m(self, by, axis, ascending, inplace, kind, na_position, ignore_index, key)\u001b[0m\n\u001b[1;32m   7187\u001b[0m             \u001b[0;31m# len(by) == 1\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m   7188\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m-> 7189\u001b[0;31m             \u001b[0mk\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0m_get_label_or_level_values\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mby\u001b[0m\u001b[0;34m[\u001b[0m\u001b[0;36m0\u001b[0m\u001b[0;34m]\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0maxis\u001b[0m\u001b[0;34m=\u001b[0m\u001b[0maxis\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m   7190\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m   7191\u001b[0m             \u001b[0;31m# need to rewrap column in Series to apply key function\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+            "\u001b[0;32m/usr/local/lib/python3.11/dist-packages/pandas/core/generic.py\u001b[0m in \u001b[0;36m_get_label_or_level_values\u001b[0;34m(self, key, axis)\u001b[0m\n\u001b[1;32m   1909\u001b[0m             \u001b[0mvalues\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0maxes\u001b[0m\u001b[0;34m[\u001b[0m\u001b[0maxis\u001b[0m\u001b[0;34m]\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mget_level_values\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mkey\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0m_values\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m   1910\u001b[0m         \u001b[0;32melse\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m-> 1911\u001b[0;31m             \u001b[0;32mraise\u001b[0m \u001b[0mKeyError\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mkey\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m   1912\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m   1913\u001b[0m         \u001b[0;31m# Check for duplicates\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+            "\u001b[0;31mKeyError\u001b[0m: 'support'"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "###### The error occured while executing the code"
+      ],
+      "metadata": {
+        "id": "UB63b4orprEx"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "# Perplexity Response"
+      ],
+      "metadata": {
+        "id": "PADON1AOm0SO"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Install PAMI library if not already installed\n",
+        "!pip install pami\n",
+        "\n",
+        "# Import required modules\n",
+        "from PAMI.frequentPattern.basic import FPGrowth as alg\n",
+        "import pandas as pd\n",
+        "\n",
+        "# Configure FP-Growth parameters\n",
+        "input_file = '/content/Transactional_T10I4D100K.csv'\n",
+        "min_support = 0.1  # Minimum support threshold (10%)\n",
+        "separator = ','     # CSV separator (adjust if needed)\n",
+        "\n",
+        "# Initialize and execute FP-Growth\n",
+        "fpgrowth_obj = alg.FPGrowth(iFile=input_file, minSup=min_support, sep=separator)\n",
+        "fpgrowth_obj.mine()\n",
+        "\n",
+        "# Retrieve results\n",
+        "frequent_patterns = fpgrowth_obj.getPatternsAsDataFrame()\n",
+        "print(f\"Discovered {len(frequent_patterns)} frequent patterns\")\n",
+        "\n",
+        "# Save results to file\n",
+        "fpgrowth_obj.save('frequent_patterns.txt')\n",
+        "\n",
+        "# Display performance metrics\n",
+        "print(f\"Runtime: {fpgrowth_obj.getRuntime():.2f} seconds\")\n",
+        "print(f\"Memory RSS: {fpgrowth_obj.getMemoryRSS()} bytes\")\n",
+        "print(f\"Memory USS: {fpgrowth_obj.getMemoryUSS()} bytes\")\n",
+        "\n",
+        "# Preview first 10 patterns\n",
+        "print(\"\\nSample patterns:\")\n",
+        "print(frequent_patterns.head(10))\n"
+      ],
+      "metadata": {
+        "id": "-jO_7HG6m7Sx",
+        "outputId": "4d9ee1bb-6e7f-4aa8-ad8d-52262eb3db0f",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        }
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Requirement already satisfied: pami in /usr/local/lib/python3.11/dist-packages (2025.6.26.1)\n",
+            "Requirement already satisfied: psutil in /usr/local/lib/python3.11/dist-packages (from pami) (5.9.5)\n",
+            "Requirement already satisfied: pandas in /usr/local/lib/python3.11/dist-packages (from pami) (2.2.2)\n",
+            "Requirement already satisfied: plotly in /usr/local/lib/python3.11/dist-packages (from pami) (5.24.1)\n",
+            "Requirement already satisfied: matplotlib in /usr/local/lib/python3.11/dist-packages (from pami) (3.10.0)\n",
+            "Requirement already satisfied: resource in /usr/local/lib/python3.11/dist-packages (from pami) (0.2.1)\n",
+            "Requirement already satisfied: validators in /usr/local/lib/python3.11/dist-packages (from pami) (0.35.0)\n",
+            "Requirement already satisfied: urllib3 in /usr/local/lib/python3.11/dist-packages (from pami) (2.4.0)\n",
+            "Requirement already satisfied: Pillow in /usr/local/lib/python3.11/dist-packages (from pami) (11.2.1)\n",
+            "Requirement already satisfied: numpy in /usr/local/lib/python3.11/dist-packages (from pami) (2.0.2)\n",
+            "Requirement already satisfied: sphinx in /usr/local/lib/python3.11/dist-packages (from pami) (8.2.3)\n",
+            "Requirement already satisfied: sphinx-rtd-theme in /usr/local/lib/python3.11/dist-packages (from pami) (3.0.2)\n",
+            "Requirement already satisfied: discord.py in /usr/local/lib/python3.11/dist-packages (from pami) (2.5.2)\n",
+            "Requirement already satisfied: networkx in /usr/local/lib/python3.11/dist-packages (from pami) (3.5)\n",
+            "Requirement already satisfied: deprecated in /usr/local/lib/python3.11/dist-packages (from pami) (1.2.18)\n",
+            "Requirement already satisfied: fastparquet in /usr/local/lib/python3.11/dist-packages (from pami) (2024.11.0)\n",
+            "Requirement already satisfied: wrapt<2,>=1.10 in /usr/local/lib/python3.11/dist-packages (from deprecated->pami) (1.17.2)\n",
+            "Requirement already satisfied: aiohttp<4,>=3.7.4 in /usr/local/lib/python3.11/dist-packages (from discord.py->pami) (3.11.15)\n",
+            "Requirement already satisfied: cramjam>=2.3 in /usr/local/lib/python3.11/dist-packages (from fastparquet->pami) (2.10.0)\n",
+            "Requirement already satisfied: fsspec in /usr/local/lib/python3.11/dist-packages (from fastparquet->pami) (2025.3.2)\n",
+            "Requirement already satisfied: packaging in /usr/local/lib/python3.11/dist-packages (from fastparquet->pami) (24.2)\n",
+            "Requirement already satisfied: python-dateutil>=2.8.2 in /usr/local/lib/python3.11/dist-packages (from pandas->pami) (2.9.0.post0)\n",
+            "Requirement already satisfied: pytz>=2020.1 in /usr/local/lib/python3.11/dist-packages (from pandas->pami) (2025.2)\n",
+            "Requirement already satisfied: tzdata>=2022.7 in /usr/local/lib/python3.11/dist-packages (from pandas->pami) (2025.2)\n",
+            "Requirement already satisfied: contourpy>=1.0.1 in /usr/local/lib/python3.11/dist-packages (from matplotlib->pami) (1.3.2)\n",
+            "Requirement already satisfied: cycler>=0.10 in /usr/local/lib/python3.11/dist-packages (from matplotlib->pami) (0.12.1)\n",
+            "Requirement already satisfied: fonttools>=4.22.0 in /usr/local/lib/python3.11/dist-packages (from matplotlib->pami) (4.58.4)\n",
+            "Requirement already satisfied: kiwisolver>=1.3.1 in /usr/local/lib/python3.11/dist-packages (from matplotlib->pami) (1.4.8)\n",
+            "Requirement already satisfied: pyparsing>=2.3.1 in /usr/local/lib/python3.11/dist-packages (from matplotlib->pami) (3.2.3)\n",
+            "Requirement already satisfied: tenacity>=6.2.0 in /usr/local/lib/python3.11/dist-packages (from plotly->pami) (8.5.0)\n",
+            "Requirement already satisfied: JsonForm>=0.0.2 in /usr/local/lib/python3.11/dist-packages (from resource->pami) (0.0.2)\n",
+            "Requirement already satisfied: JsonSir>=0.0.2 in /usr/local/lib/python3.11/dist-packages (from resource->pami) (0.0.2)\n",
+            "Requirement already satisfied: python-easyconfig>=0.1.0 in /usr/local/lib/python3.11/dist-packages (from resource->pami) (0.1.7)\n",
+            "Requirement already satisfied: sphinxcontrib-applehelp>=1.0.7 in /usr/local/lib/python3.11/dist-packages (from sphinx->pami) (2.0.0)\n",
+            "Requirement already satisfied: sphinxcontrib-devhelp>=1.0.6 in /usr/local/lib/python3.11/dist-packages (from sphinx->pami) (2.0.0)\n",
+            "Requirement already satisfied: sphinxcontrib-htmlhelp>=2.0.6 in /usr/local/lib/python3.11/dist-packages (from sphinx->pami) (2.1.0)\n",
+            "Requirement already satisfied: sphinxcontrib-jsmath>=1.0.1 in /usr/local/lib/python3.11/dist-packages (from sphinx->pami) (1.0.1)\n",
+            "Requirement already satisfied: sphinxcontrib-qthelp>=1.0.6 in /usr/local/lib/python3.11/dist-packages (from sphinx->pami) (2.0.0)\n",
+            "Requirement already satisfied: sphinxcontrib-serializinghtml>=1.1.9 in /usr/local/lib/python3.11/dist-packages (from sphinx->pami) (2.0.0)\n",
+            "Requirement already satisfied: Jinja2>=3.1 in /usr/local/lib/python3.11/dist-packages (from sphinx->pami) (3.1.6)\n",
+            "Requirement already satisfied: Pygments>=2.17 in /usr/local/lib/python3.11/dist-packages (from sphinx->pami) (2.19.2)\n",
+            "Requirement already satisfied: docutils<0.22,>=0.20 in /usr/local/lib/python3.11/dist-packages (from sphinx->pami) (0.21.2)\n",
+            "Requirement already satisfied: snowballstemmer>=2.2 in /usr/local/lib/python3.11/dist-packages (from sphinx->pami) (3.0.1)\n",
+            "Requirement already satisfied: babel>=2.13 in /usr/local/lib/python3.11/dist-packages (from sphinx->pami) (2.17.0)\n",
+            "Requirement already satisfied: alabaster>=0.7.14 in /usr/local/lib/python3.11/dist-packages (from sphinx->pami) (1.0.0)\n",
+            "Requirement already satisfied: imagesize>=1.3 in /usr/local/lib/python3.11/dist-packages (from sphinx->pami) (1.4.1)\n",
+            "Requirement already satisfied: requests>=2.30.0 in /usr/local/lib/python3.11/dist-packages (from sphinx->pami) (2.32.3)\n",
+            "Requirement already satisfied: roman-numerals-py>=1.0.0 in /usr/local/lib/python3.11/dist-packages (from sphinx->pami) (3.1.0)\n",
+            "Requirement already satisfied: sphinxcontrib-jquery<5,>=4 in /usr/local/lib/python3.11/dist-packages (from sphinx-rtd-theme->pami) (4.1)\n",
+            "Requirement already satisfied: aiohappyeyeballs>=2.3.0 in /usr/local/lib/python3.11/dist-packages (from aiohttp<4,>=3.7.4->discord.py->pami) (2.6.1)\n",
+            "Requirement already satisfied: aiosignal>=1.1.2 in /usr/local/lib/python3.11/dist-packages (from aiohttp<4,>=3.7.4->discord.py->pami) (1.3.2)\n",
+            "Requirement already satisfied: attrs>=17.3.0 in /usr/local/lib/python3.11/dist-packages (from aiohttp<4,>=3.7.4->discord.py->pami) (25.3.0)\n",
+            "Requirement already satisfied: frozenlist>=1.1.1 in /usr/local/lib/python3.11/dist-packages (from aiohttp<4,>=3.7.4->discord.py->pami) (1.7.0)\n",
+            "Requirement already satisfied: multidict<7.0,>=4.5 in /usr/local/lib/python3.11/dist-packages (from aiohttp<4,>=3.7.4->discord.py->pami) (6.4.4)\n",
+            "Requirement already satisfied: propcache>=0.2.0 in /usr/local/lib/python3.11/dist-packages (from aiohttp<4,>=3.7.4->discord.py->pami) (0.3.2)\n",
+            "Requirement already satisfied: yarl<2.0,>=1.17.0 in /usr/local/lib/python3.11/dist-packages (from aiohttp<4,>=3.7.4->discord.py->pami) (1.20.1)\n",
+            "Requirement already satisfied: MarkupSafe>=2.0 in /usr/local/lib/python3.11/dist-packages (from Jinja2>=3.1->sphinx->pami) (3.0.2)\n",
+            "Requirement already satisfied: jsonschema in /usr/local/lib/python3.11/dist-packages (from JsonForm>=0.0.2->resource->pami) (4.24.0)\n",
+            "Requirement already satisfied: six>=1.5 in /usr/local/lib/python3.11/dist-packages (from python-dateutil>=2.8.2->pandas->pami) (1.17.0)\n",
+            "Requirement already satisfied: PyYAML in /usr/local/lib/python3.11/dist-packages (from python-easyconfig>=0.1.0->resource->pami) (6.0.2)\n",
+            "Requirement already satisfied: charset-normalizer<4,>=2 in /usr/local/lib/python3.11/dist-packages (from requests>=2.30.0->sphinx->pami) (3.4.2)\n",
+            "Requirement already satisfied: idna<4,>=2.5 in /usr/local/lib/python3.11/dist-packages (from requests>=2.30.0->sphinx->pami) (3.10)\n",
+            "Requirement already satisfied: certifi>=2017.4.17 in /usr/local/lib/python3.11/dist-packages (from requests>=2.30.0->sphinx->pami) (2025.6.15)\n",
+            "Requirement already satisfied: jsonschema-specifications>=2023.03.6 in /usr/local/lib/python3.11/dist-packages (from jsonschema->JsonForm>=0.0.2->resource->pami) (2025.4.1)\n",
+            "Requirement already satisfied: referencing>=0.28.4 in /usr/local/lib/python3.11/dist-packages (from jsonschema->JsonForm>=0.0.2->resource->pami) (0.36.2)\n",
+            "Requirement already satisfied: rpds-py>=0.7.1 in /usr/local/lib/python3.11/dist-packages (from jsonschema->JsonForm>=0.0.2->resource->pami) (0.25.1)\n",
+            "Requirement already satisfied: typing-extensions>=4.4.0 in /usr/local/lib/python3.11/dist-packages (from referencing>=0.28.4->jsonschema->JsonForm>=0.0.2->resource->pami) (4.14.0)\n",
+            "Frequent patterns were generated successfully using frequentPatternGrowth algorithm\n",
+            "Discovered 0 frequent patterns\n",
+            "Runtime: 0.25 seconds\n",
+            "Memory RSS: 469172224 bytes\n",
+            "Memory USS: 448487424 bytes\n",
+            "\n",
+            "Sample patterns:\n",
+            "Empty DataFrame\n",
+            "Columns: [Patterns, Support]\n",
+            "Index: []\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "###### Created its own dataset ignoring the given transactional dataset"
+      ],
+      "metadata": {
+        "id": "nioRFonSqDHp"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "# Copilot"
+      ],
+      "metadata": {
+        "id": "WSjvhpKgnDlO"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "pip install pami\n"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "OQUZ9Z014kQv",
+        "outputId": "e2653e39-8588-49d0-81a0-23383ecf0e23"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Requirement already satisfied: pami in /usr/local/lib/python3.11/dist-packages (2025.6.26.1)\n",
+            "Requirement already satisfied: psutil in /usr/local/lib/python3.11/dist-packages (from pami) (5.9.5)\n",
+            "Requirement already satisfied: pandas in /usr/local/lib/python3.11/dist-packages (from pami) (2.2.2)\n",
+            "Requirement already satisfied: plotly in /usr/local/lib/python3.11/dist-packages (from pami) (5.24.1)\n",
+            "Requirement already satisfied: matplotlib in /usr/local/lib/python3.11/dist-packages (from pami) (3.10.0)\n",
+            "Requirement already satisfied: resource in /usr/local/lib/python3.11/dist-packages (from pami) (0.2.1)\n",
+            "Requirement already satisfied: validators in /usr/local/lib/python3.11/dist-packages (from pami) (0.35.0)\n",
+            "Requirement already satisfied: urllib3 in /usr/local/lib/python3.11/dist-packages (from pami) (2.4.0)\n",
+            "Requirement already satisfied: Pillow in /usr/local/lib/python3.11/dist-packages (from pami) (11.2.1)\n",
+            "Requirement already satisfied: numpy in /usr/local/lib/python3.11/dist-packages (from pami) (2.0.2)\n",
+            "Requirement already satisfied: sphinx in /usr/local/lib/python3.11/dist-packages (from pami) (8.2.3)\n",
+            "Requirement already satisfied: sphinx-rtd-theme in /usr/local/lib/python3.11/dist-packages (from pami) (3.0.2)\n",
+            "Requirement already satisfied: discord.py in /usr/local/lib/python3.11/dist-packages (from pami) (2.5.2)\n",
+            "Requirement already satisfied: networkx in /usr/local/lib/python3.11/dist-packages (from pami) (3.5)\n",
+            "Requirement already satisfied: deprecated in /usr/local/lib/python3.11/dist-packages (from pami) (1.2.18)\n",
+            "Requirement already satisfied: fastparquet in /usr/local/lib/python3.11/dist-packages (from pami) (2024.11.0)\n",
+            "Requirement already satisfied: wrapt<2,>=1.10 in /usr/local/lib/python3.11/dist-packages (from deprecated->pami) (1.17.2)\n",
+            "Requirement already satisfied: aiohttp<4,>=3.7.4 in /usr/local/lib/python3.11/dist-packages (from discord.py->pami) (3.11.15)\n",
+            "Requirement already satisfied: cramjam>=2.3 in /usr/local/lib/python3.11/dist-packages (from fastparquet->pami) (2.10.0)\n",
+            "Requirement already satisfied: fsspec in /usr/local/lib/python3.11/dist-packages (from fastparquet->pami) (2025.3.2)\n",
+            "Requirement already satisfied: packaging in /usr/local/lib/python3.11/dist-packages (from fastparquet->pami) (24.2)\n",
+            "Requirement already satisfied: python-dateutil>=2.8.2 in /usr/local/lib/python3.11/dist-packages (from pandas->pami) (2.9.0.post0)\n",
+            "Requirement already satisfied: pytz>=2020.1 in /usr/local/lib/python3.11/dist-packages (from pandas->pami) (2025.2)\n",
+            "Requirement already satisfied: tzdata>=2022.7 in /usr/local/lib/python3.11/dist-packages (from pandas->pami) (2025.2)\n",
+            "Requirement already satisfied: contourpy>=1.0.1 in /usr/local/lib/python3.11/dist-packages (from matplotlib->pami) (1.3.2)\n",
+            "Requirement already satisfied: cycler>=0.10 in /usr/local/lib/python3.11/dist-packages (from matplotlib->pami) (0.12.1)\n",
+            "Requirement already satisfied: fonttools>=4.22.0 in /usr/local/lib/python3.11/dist-packages (from matplotlib->pami) (4.58.4)\n",
+            "Requirement already satisfied: kiwisolver>=1.3.1 in /usr/local/lib/python3.11/dist-packages (from matplotlib->pami) (1.4.8)\n",
+            "Requirement already satisfied: pyparsing>=2.3.1 in /usr/local/lib/python3.11/dist-packages (from matplotlib->pami) (3.2.3)\n",
+            "Requirement already satisfied: tenacity>=6.2.0 in /usr/local/lib/python3.11/dist-packages (from plotly->pami) (8.5.0)\n",
+            "Requirement already satisfied: JsonForm>=0.0.2 in /usr/local/lib/python3.11/dist-packages (from resource->pami) (0.0.2)\n",
+            "Requirement already satisfied: JsonSir>=0.0.2 in /usr/local/lib/python3.11/dist-packages (from resource->pami) (0.0.2)\n",
+            "Requirement already satisfied: python-easyconfig>=0.1.0 in /usr/local/lib/python3.11/dist-packages (from resource->pami) (0.1.7)\n",
+            "Requirement already satisfied: sphinxcontrib-applehelp>=1.0.7 in /usr/local/lib/python3.11/dist-packages (from sphinx->pami) (2.0.0)\n",
+            "Requirement already satisfied: sphinxcontrib-devhelp>=1.0.6 in /usr/local/lib/python3.11/dist-packages (from sphinx->pami) (2.0.0)\n",
+            "Requirement already satisfied: sphinxcontrib-htmlhelp>=2.0.6 in /usr/local/lib/python3.11/dist-packages (from sphinx->pami) (2.1.0)\n",
+            "Requirement already satisfied: sphinxcontrib-jsmath>=1.0.1 in /usr/local/lib/python3.11/dist-packages (from sphinx->pami) (1.0.1)\n",
+            "Requirement already satisfied: sphinxcontrib-qthelp>=1.0.6 in /usr/local/lib/python3.11/dist-packages (from sphinx->pami) (2.0.0)\n",
+            "Requirement already satisfied: sphinxcontrib-serializinghtml>=1.1.9 in /usr/local/lib/python3.11/dist-packages (from sphinx->pami) (2.0.0)\n",
+            "Requirement already satisfied: Jinja2>=3.1 in /usr/local/lib/python3.11/dist-packages (from sphinx->pami) (3.1.6)\n",
+            "Requirement already satisfied: Pygments>=2.17 in /usr/local/lib/python3.11/dist-packages (from sphinx->pami) (2.19.2)\n",
+            "Requirement already satisfied: docutils<0.22,>=0.20 in /usr/local/lib/python3.11/dist-packages (from sphinx->pami) (0.21.2)\n",
+            "Requirement already satisfied: snowballstemmer>=2.2 in /usr/local/lib/python3.11/dist-packages (from sphinx->pami) (3.0.1)\n",
+            "Requirement already satisfied: babel>=2.13 in /usr/local/lib/python3.11/dist-packages (from sphinx->pami) (2.17.0)\n",
+            "Requirement already satisfied: alabaster>=0.7.14 in /usr/local/lib/python3.11/dist-packages (from sphinx->pami) (1.0.0)\n",
+            "Requirement already satisfied: imagesize>=1.3 in /usr/local/lib/python3.11/dist-packages (from sphinx->pami) (1.4.1)\n",
+            "Requirement already satisfied: requests>=2.30.0 in /usr/local/lib/python3.11/dist-packages (from sphinx->pami) (2.32.3)\n",
+            "Requirement already satisfied: roman-numerals-py>=1.0.0 in /usr/local/lib/python3.11/dist-packages (from sphinx->pami) (3.1.0)\n",
+            "Requirement already satisfied: sphinxcontrib-jquery<5,>=4 in /usr/local/lib/python3.11/dist-packages (from sphinx-rtd-theme->pami) (4.1)\n",
+            "Requirement already satisfied: aiohappyeyeballs>=2.3.0 in /usr/local/lib/python3.11/dist-packages (from aiohttp<4,>=3.7.4->discord.py->pami) (2.6.1)\n",
+            "Requirement already satisfied: aiosignal>=1.1.2 in /usr/local/lib/python3.11/dist-packages (from aiohttp<4,>=3.7.4->discord.py->pami) (1.3.2)\n",
+            "Requirement already satisfied: attrs>=17.3.0 in /usr/local/lib/python3.11/dist-packages (from aiohttp<4,>=3.7.4->discord.py->pami) (25.3.0)\n",
+            "Requirement already satisfied: frozenlist>=1.1.1 in /usr/local/lib/python3.11/dist-packages (from aiohttp<4,>=3.7.4->discord.py->pami) (1.7.0)\n",
+            "Requirement already satisfied: multidict<7.0,>=4.5 in /usr/local/lib/python3.11/dist-packages (from aiohttp<4,>=3.7.4->discord.py->pami) (6.4.4)\n",
+            "Requirement already satisfied: propcache>=0.2.0 in /usr/local/lib/python3.11/dist-packages (from aiohttp<4,>=3.7.4->discord.py->pami) (0.3.2)\n",
+            "Requirement already satisfied: yarl<2.0,>=1.17.0 in /usr/local/lib/python3.11/dist-packages (from aiohttp<4,>=3.7.4->discord.py->pami) (1.20.1)\n",
+            "Requirement already satisfied: MarkupSafe>=2.0 in /usr/local/lib/python3.11/dist-packages (from Jinja2>=3.1->sphinx->pami) (3.0.2)\n",
+            "Requirement already satisfied: jsonschema in /usr/local/lib/python3.11/dist-packages (from JsonForm>=0.0.2->resource->pami) (4.24.0)\n",
+            "Requirement already satisfied: six>=1.5 in /usr/local/lib/python3.11/dist-packages (from python-dateutil>=2.8.2->pandas->pami) (1.17.0)\n",
+            "Requirement already satisfied: PyYAML in /usr/local/lib/python3.11/dist-packages (from python-easyconfig>=0.1.0->resource->pami) (6.0.2)\n",
+            "Requirement already satisfied: charset-normalizer<4,>=2 in /usr/local/lib/python3.11/dist-packages (from requests>=2.30.0->sphinx->pami) (3.4.2)\n",
+            "Requirement already satisfied: idna<4,>=2.5 in /usr/local/lib/python3.11/dist-packages (from requests>=2.30.0->sphinx->pami) (3.10)\n",
+            "Requirement already satisfied: certifi>=2017.4.17 in /usr/local/lib/python3.11/dist-packages (from requests>=2.30.0->sphinx->pami) (2025.6.15)\n",
+            "Requirement already satisfied: jsonschema-specifications>=2023.03.6 in /usr/local/lib/python3.11/dist-packages (from jsonschema->JsonForm>=0.0.2->resource->pami) (2025.4.1)\n",
+            "Requirement already satisfied: referencing>=0.28.4 in /usr/local/lib/python3.11/dist-packages (from jsonschema->JsonForm>=0.0.2->resource->pami) (0.36.2)\n",
+            "Requirement already satisfied: rpds-py>=0.7.1 in /usr/local/lib/python3.11/dist-packages (from jsonschema->JsonForm>=0.0.2->resource->pami) (0.25.1)\n",
+            "Requirement already satisfied: typing-extensions>=4.4.0 in /usr/local/lib/python3.11/dist-packages (from referencing>=0.28.4->jsonschema->JsonForm>=0.0.2->resource->pami) (4.14.0)\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "from pami import fpgrowth\n",
+        "import pandas as pd\n",
+        "\n",
+        "# Load your transactional data from the CSV file\n",
+        "# Assume the file has one transaction per line, items separated by commas\n",
+        "file_path = 'Transactional_T10I4D100K.csv'\n",
+        "\n",
+        "with open(file_path, 'r') as f:\n",
+        "    transactions = [line.strip().split(',') for line in f.readlines()]\n",
+        "\n",
+        "# Run FP-Growth using PAMI\n",
+        "min_support = 0.01  # Adjust this value based on your needs\n",
+        "frequent_itemsets = fpgrowth(transactions, minSupRatio=min_support)\n",
+        "\n",
+        "# Print the frequent patterns\n",
+        "for itemset, support in frequent_itemsets:\n",
+        "    print(f\"{itemset} - support: {support}\")\n"
+      ],
+      "metadata": {
+        "id": "46rtSqQmnE8l",
+        "outputId": "4fad359d-6a04-4e92-ff8d-dc6ac627bbd9",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 383
+        }
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "error",
+          "ename": "ModuleNotFoundError",
+          "evalue": "No module named 'pami'",
+          "traceback": [
+            "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+            "\u001b[0;31mModuleNotFoundError\u001b[0m                       Traceback (most recent call last)",
+            "\u001b[0;32m/tmp/ipython-input-8-964095979.py\u001b[0m in \u001b[0;36m<cell line: 0>\u001b[0;34m()\u001b[0m\n\u001b[0;32m----> 1\u001b[0;31m \u001b[0;32mfrom\u001b[0m \u001b[0mpami\u001b[0m \u001b[0;32mimport\u001b[0m \u001b[0mfpgrowth\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m      2\u001b[0m \u001b[0;32mimport\u001b[0m \u001b[0mpandas\u001b[0m \u001b[0;32mas\u001b[0m \u001b[0mpd\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m      3\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m      4\u001b[0m \u001b[0;31m# Load your transactional data from the CSV file\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m      5\u001b[0m \u001b[0;31m# Assume the file has one transaction per line, items separated by commas\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+            "\u001b[0;31mModuleNotFoundError\u001b[0m: No module named 'pami'",
+            "",
+            "\u001b[0;31m---------------------------------------------------------------------------\u001b[0;32m\nNOTE: If your import is failing due to a missing package, you can\nmanually install dependencies using either !pip or !apt.\n\nTo view examples of installing some common dependencies, click the\n\"Open Examples\" button below.\n\u001b[0;31m---------------------------------------------------------------------------\u001b[0m\n"
+          ],
+          "errorDetails": {
+            "actions": [
+              {
+                "action": "open_url",
+                "actionText": "Open Examples",
+                "url": "/notebooks/snippets/importing_libraries.ipynb"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "###### Created its own dataset ignoring the given transactional dataset"
+      ],
+      "metadata": {
+        "id": "cCGiIUEgxk0R"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "# PAMI GPT"
+      ],
+      "metadata": {
+        "id": "mOwQM5yrnGYx"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "!pip install PAMI\n"
+      ],
+      "metadata": {
+        "id": "yNqtOLgonFYt",
+        "outputId": "11493d20-a4c4-4f59-b246-9a5c1da10c33",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        }
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Requirement already satisfied: PAMI in /usr/local/lib/python3.11/dist-packages (2025.6.26.1)\n",
+            "Requirement already satisfied: psutil in /usr/local/lib/python3.11/dist-packages (from PAMI) (5.9.5)\n",
+            "Requirement already satisfied: pandas in /usr/local/lib/python3.11/dist-packages (from PAMI) (2.2.2)\n",
+            "Requirement already satisfied: plotly in /usr/local/lib/python3.11/dist-packages (from PAMI) (5.24.1)\n",
+            "Requirement already satisfied: matplotlib in /usr/local/lib/python3.11/dist-packages (from PAMI) (3.10.0)\n",
+            "Requirement already satisfied: resource in /usr/local/lib/python3.11/dist-packages (from PAMI) (0.2.1)\n",
+            "Requirement already satisfied: validators in /usr/local/lib/python3.11/dist-packages (from PAMI) (0.35.0)\n",
+            "Requirement already satisfied: urllib3 in /usr/local/lib/python3.11/dist-packages (from PAMI) (2.4.0)\n",
+            "Requirement already satisfied: Pillow in /usr/local/lib/python3.11/dist-packages (from PAMI) (11.2.1)\n",
+            "Requirement already satisfied: numpy in /usr/local/lib/python3.11/dist-packages (from PAMI) (2.0.2)\n",
+            "Requirement already satisfied: sphinx in /usr/local/lib/python3.11/dist-packages (from PAMI) (8.2.3)\n",
+            "Requirement already satisfied: sphinx-rtd-theme in /usr/local/lib/python3.11/dist-packages (from PAMI) (3.0.2)\n",
+            "Requirement already satisfied: discord.py in /usr/local/lib/python3.11/dist-packages (from PAMI) (2.5.2)\n",
+            "Requirement already satisfied: networkx in /usr/local/lib/python3.11/dist-packages (from PAMI) (3.5)\n",
+            "Requirement already satisfied: deprecated in /usr/local/lib/python3.11/dist-packages (from PAMI) (1.2.18)\n",
+            "Requirement already satisfied: fastparquet in /usr/local/lib/python3.11/dist-packages (from PAMI) (2024.11.0)\n",
+            "Requirement already satisfied: wrapt<2,>=1.10 in /usr/local/lib/python3.11/dist-packages (from deprecated->PAMI) (1.17.2)\n",
+            "Requirement already satisfied: aiohttp<4,>=3.7.4 in /usr/local/lib/python3.11/dist-packages (from discord.py->PAMI) (3.11.15)\n",
+            "Requirement already satisfied: cramjam>=2.3 in /usr/local/lib/python3.11/dist-packages (from fastparquet->PAMI) (2.10.0)\n",
+            "Requirement already satisfied: fsspec in /usr/local/lib/python3.11/dist-packages (from fastparquet->PAMI) (2025.3.2)\n",
+            "Requirement already satisfied: packaging in /usr/local/lib/python3.11/dist-packages (from fastparquet->PAMI) (24.2)\n",
+            "Requirement already satisfied: python-dateutil>=2.8.2 in /usr/local/lib/python3.11/dist-packages (from pandas->PAMI) (2.9.0.post0)\n",
+            "Requirement already satisfied: pytz>=2020.1 in /usr/local/lib/python3.11/dist-packages (from pandas->PAMI) (2025.2)\n",
+            "Requirement already satisfied: tzdata>=2022.7 in /usr/local/lib/python3.11/dist-packages (from pandas->PAMI) (2025.2)\n",
+            "Requirement already satisfied: contourpy>=1.0.1 in /usr/local/lib/python3.11/dist-packages (from matplotlib->PAMI) (1.3.2)\n",
+            "Requirement already satisfied: cycler>=0.10 in /usr/local/lib/python3.11/dist-packages (from matplotlib->PAMI) (0.12.1)\n",
+            "Requirement already satisfied: fonttools>=4.22.0 in /usr/local/lib/python3.11/dist-packages (from matplotlib->PAMI) (4.58.4)\n",
+            "Requirement already satisfied: kiwisolver>=1.3.1 in /usr/local/lib/python3.11/dist-packages (from matplotlib->PAMI) (1.4.8)\n",
+            "Requirement already satisfied: pyparsing>=2.3.1 in /usr/local/lib/python3.11/dist-packages (from matplotlib->PAMI) (3.2.3)\n",
+            "Requirement already satisfied: tenacity>=6.2.0 in /usr/local/lib/python3.11/dist-packages (from plotly->PAMI) (8.5.0)\n",
+            "Requirement already satisfied: JsonForm>=0.0.2 in /usr/local/lib/python3.11/dist-packages (from resource->PAMI) (0.0.2)\n",
+            "Requirement already satisfied: JsonSir>=0.0.2 in /usr/local/lib/python3.11/dist-packages (from resource->PAMI) (0.0.2)\n",
+            "Requirement already satisfied: python-easyconfig>=0.1.0 in /usr/local/lib/python3.11/dist-packages (from resource->PAMI) (0.1.7)\n",
+            "Requirement already satisfied: sphinxcontrib-applehelp>=1.0.7 in /usr/local/lib/python3.11/dist-packages (from sphinx->PAMI) (2.0.0)\n",
+            "Requirement already satisfied: sphinxcontrib-devhelp>=1.0.6 in /usr/local/lib/python3.11/dist-packages (from sphinx->PAMI) (2.0.0)\n",
+            "Requirement already satisfied: sphinxcontrib-htmlhelp>=2.0.6 in /usr/local/lib/python3.11/dist-packages (from sphinx->PAMI) (2.1.0)\n",
+            "Requirement already satisfied: sphinxcontrib-jsmath>=1.0.1 in /usr/local/lib/python3.11/dist-packages (from sphinx->PAMI) (1.0.1)\n",
+            "Requirement already satisfied: sphinxcontrib-qthelp>=1.0.6 in /usr/local/lib/python3.11/dist-packages (from sphinx->PAMI) (2.0.0)\n",
+            "Requirement already satisfied: sphinxcontrib-serializinghtml>=1.1.9 in /usr/local/lib/python3.11/dist-packages (from sphinx->PAMI) (2.0.0)\n",
+            "Requirement already satisfied: Jinja2>=3.1 in /usr/local/lib/python3.11/dist-packages (from sphinx->PAMI) (3.1.6)\n",
+            "Requirement already satisfied: Pygments>=2.17 in /usr/local/lib/python3.11/dist-packages (from sphinx->PAMI) (2.19.2)\n",
+            "Requirement already satisfied: docutils<0.22,>=0.20 in /usr/local/lib/python3.11/dist-packages (from sphinx->PAMI) (0.21.2)\n",
+            "Requirement already satisfied: snowballstemmer>=2.2 in /usr/local/lib/python3.11/dist-packages (from sphinx->PAMI) (3.0.1)\n",
+            "Requirement already satisfied: babel>=2.13 in /usr/local/lib/python3.11/dist-packages (from sphinx->PAMI) (2.17.0)\n",
+            "Requirement already satisfied: alabaster>=0.7.14 in /usr/local/lib/python3.11/dist-packages (from sphinx->PAMI) (1.0.0)\n",
+            "Requirement already satisfied: imagesize>=1.3 in /usr/local/lib/python3.11/dist-packages (from sphinx->PAMI) (1.4.1)\n",
+            "Requirement already satisfied: requests>=2.30.0 in /usr/local/lib/python3.11/dist-packages (from sphinx->PAMI) (2.32.3)\n",
+            "Requirement already satisfied: roman-numerals-py>=1.0.0 in /usr/local/lib/python3.11/dist-packages (from sphinx->PAMI) (3.1.0)\n",
+            "Requirement already satisfied: sphinxcontrib-jquery<5,>=4 in /usr/local/lib/python3.11/dist-packages (from sphinx-rtd-theme->PAMI) (4.1)\n",
+            "Requirement already satisfied: aiohappyeyeballs>=2.3.0 in /usr/local/lib/python3.11/dist-packages (from aiohttp<4,>=3.7.4->discord.py->PAMI) (2.6.1)\n",
+            "Requirement already satisfied: aiosignal>=1.1.2 in /usr/local/lib/python3.11/dist-packages (from aiohttp<4,>=3.7.4->discord.py->PAMI) (1.3.2)\n",
+            "Requirement already satisfied: attrs>=17.3.0 in /usr/local/lib/python3.11/dist-packages (from aiohttp<4,>=3.7.4->discord.py->PAMI) (25.3.0)\n",
+            "Requirement already satisfied: frozenlist>=1.1.1 in /usr/local/lib/python3.11/dist-packages (from aiohttp<4,>=3.7.4->discord.py->PAMI) (1.7.0)\n",
+            "Requirement already satisfied: multidict<7.0,>=4.5 in /usr/local/lib/python3.11/dist-packages (from aiohttp<4,>=3.7.4->discord.py->PAMI) (6.4.4)\n",
+            "Requirement already satisfied: propcache>=0.2.0 in /usr/local/lib/python3.11/dist-packages (from aiohttp<4,>=3.7.4->discord.py->PAMI) (0.3.2)\n",
+            "Requirement already satisfied: yarl<2.0,>=1.17.0 in /usr/local/lib/python3.11/dist-packages (from aiohttp<4,>=3.7.4->discord.py->PAMI) (1.20.1)\n",
+            "Requirement already satisfied: MarkupSafe>=2.0 in /usr/local/lib/python3.11/dist-packages (from Jinja2>=3.1->sphinx->PAMI) (3.0.2)\n",
+            "Requirement already satisfied: jsonschema in /usr/local/lib/python3.11/dist-packages (from JsonForm>=0.0.2->resource->PAMI) (4.24.0)\n",
+            "Requirement already satisfied: six>=1.5 in /usr/local/lib/python3.11/dist-packages (from python-dateutil>=2.8.2->pandas->PAMI) (1.17.0)\n",
+            "Requirement already satisfied: PyYAML in /usr/local/lib/python3.11/dist-packages (from python-easyconfig>=0.1.0->resource->PAMI) (6.0.2)\n",
+            "Requirement already satisfied: charset-normalizer<4,>=2 in /usr/local/lib/python3.11/dist-packages (from requests>=2.30.0->sphinx->PAMI) (3.4.2)\n",
+            "Requirement already satisfied: idna<4,>=2.5 in /usr/local/lib/python3.11/dist-packages (from requests>=2.30.0->sphinx->PAMI) (3.10)\n",
+            "Requirement already satisfied: certifi>=2017.4.17 in /usr/local/lib/python3.11/dist-packages (from requests>=2.30.0->sphinx->PAMI) (2025.6.15)\n",
+            "Requirement already satisfied: jsonschema-specifications>=2023.03.6 in /usr/local/lib/python3.11/dist-packages (from jsonschema->JsonForm>=0.0.2->resource->PAMI) (2025.4.1)\n",
+            "Requirement already satisfied: referencing>=0.28.4 in /usr/local/lib/python3.11/dist-packages (from jsonschema->JsonForm>=0.0.2->resource->PAMI) (0.36.2)\n",
+            "Requirement already satisfied: rpds-py>=0.7.1 in /usr/local/lib/python3.11/dist-packages (from jsonschema->JsonForm>=0.0.2->resource->PAMI) (0.25.1)\n",
+            "Requirement already satisfied: typing-extensions>=4.4.0 in /usr/local/lib/python3.11/dist-packages (from referencing>=0.28.4->jsonschema->JsonForm>=0.0.2->resource->PAMI) (4.14.0)\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Step 1: Import the FPGrowth class from PAMI\n",
+        "import PAMI.frequentPattern.basic.FPGrowth as alg\n",
+        "\n",
+        "# Step 2: Define input and output paths\n",
+        "input_file = \"/content/Transactional_T10I4D100K.csv\"\n",
+        "output_file = \"fp_growth_patterns.txt\"\n",
+        "min_sup = 10  # Support threshold (int for count or float for proportion)\n",
+        "\n",
+        "# Step 3: Create FPGrowth object\n",
+        "fp_growth = alg.FPGrowth(input_file, min_sup)\n",
+        "\n",
+        "# Step 4: Run the mining process\n",
+        "fp_growth.mine()\n",
+        "\n",
+        "# Step 5: Fetch and print patterns\n",
+        "patterns = fp_growth.getPatterns()\n",
+        "print(\"Total Frequent Patterns Found:\", len(patterns))\n",
+        "\n",
+        "# Optional: Save results to file\n",
+        "fp_growth.save(output_file)\n",
+        "\n",
+        "# Step 6: Print runtime and memory details\n",
+        "print(\"Runtime (seconds):\", fp_growth.getRuntime())\n",
+        "print(\"Memory USS (bytes):\", fp_growth.getMemoryUSS())\n",
+        "print(\"Memory RSS (bytes):\", fp_growth.getMemoryRSS())\n"
+      ],
+      "metadata": {
+        "id": "4Z8kG7w1nVwB",
+        "outputId": "bedeeb00-d32d-47a9-b8a2-66c8a88fc7ff",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        }
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Frequent patterns were generated successfully using frequentPatternGrowth algorithm\n",
+            "Total Frequent Patterns Found: 410666\n",
+            "Runtime (seconds): 24.67469096183777\n",
+            "Memory USS (bytes): 722325504\n",
+            "Memory RSS (bytes): 742793216\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [],
+      "metadata": {
+        "id": "5M0weBEO5gy7"
+      },
+      "execution_count": null,
+      "outputs": []
+    }
+  ]
+}
